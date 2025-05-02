@@ -10,6 +10,8 @@ This project focuses on the Springleaf Marketing Response dataset, where the goa
 -----
 ## -----Initial Look-----
 -----
+Dataset format: .csv
+
 Rows: 145,232
 
 Features: 1,934 columns (anonymized and mixed-type)
