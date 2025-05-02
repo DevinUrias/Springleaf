@@ -29,6 +29,9 @@ Prioritize AUC-ROC. <br>
 
 ### Tableau Insights:
 
+![image](https://github.com/user-attachments/assets/5784ee45-e141-4df4-ba81-2d0f6d4edc26)
+
+
 -Many differently formatted binary columns. 1 0, True False, "True" "False" <br>
 -Categorical columns like datetime mostly empty <br>
 -Heavy skew for target column (~23% positive class) <br>
@@ -39,54 +42,51 @@ Prioritize AUC-ROC. <br>
 ## -----Data Cleaning and Preparation-----
 -----
 
-Immediately cut the size of the dataset from 145k to 50k rows. Let me actually open it.
+Immediately cut the size of the dataset from 145k to 50k rows so I could actually begin.
 
-Priority: Reduce columns
 
-On importing many columns gave an error due to mixed datatypes, so isolated them after forcing the import. <br>
+First Hurdle: Mixed data columns
+Immediately after importing many columns gave an error due to mixed datatypes, so isolated them after forcing the import. <br>
 -Mostly boolean columns, where saved as both float and bool. Some were just null columns with one or two strings or datetime <br>
--Only 51 columns were categorical total <br>
 -Coerced columns which only had boolean like values to be boolean <br>
--Left 2 problematic columns, one datetime one seemed to just be notes <br>
--Dropped columns with over 60% missing values and this handled above issues <br>
+-Left 2 problematic columns, one datetime and one which seemed to just be notes. After deciding to drop columns with over 60% missing values this issue handled itself.
 
 Cleanup: <br>
 -Dropped all columns which only had one value for all cells <br>
 -Dropped columns which were duplicates of others <br>
--looking more specifically at categorical columns still had some boolean columns, others were more in line with what would be expected of a categorical column <br>
+-Looking more specifically at categorical columns some still held boolean columns as text, others were more in line with what would be expected of a categorical column (Datetime, states, cities, etc) <br>
 -fixed boolean columns <br>
-
 -Replaced null Nan with median for numeric or mode for categorical columns <br>
 -Encoded categorical columns <br>
--Finished with still 1845 columns <br>
+-Finished with still 1845 cleaned and usable columns <br>
 
 Feature Selection: <br>
-made sure to first filter out unnecessary columns, id and target <br>
--got 2 correlation scores for all columns,  <br>
----one average with regards to all columns <br>
----one with regard to only target <br>
--This gives me 3 datasets I can work with <br>
----Most unique <br>
----Most correlated to target <br>
----"Best of Both" <br>
+![download](https://github.com/user-attachments/assets/7765e80c-eaab-4870-988d-55b0fda43315)
+
+Decided to approach this using a correlation matrix for all columns. Taking this I averaged all values for each individual feature and then ran a separate matrix just relating each feature to the target. With these two separate lists I created a third, a cross referenced list finding the top 80 features shared in each list.
+
+This gave me the following to work with: <br>
+-One average with regards to all columns <br>
+-One with the values most related to only target (which ended up being most useful) <br>
+-One "Best of Both"
 
 -----
 ## -----Machine Learning-----
 -----
 
 Planning to run multiple sets of columns I coded a function to run my choice of model and chosen dataset. <br>
-Tested 4 models on each dataset: <br>
+Tested 4 models on each of the 3 datasets we created: <br>
 -RandomForest <br>
 -DecisionTree <br>
 -XGBoost <br>
 -LogisticRegression <br>
-These provided a well rounded approach with each model approaching the problem differently
+These provided a well rounded approach with each model approaching the problem differently.
 
-Initial run had decent accuracy when it came to predicting those who would not, but was not effective at determining who WOULD respond. <br>
-This is possibly due to the skewed target, overlearning <br>
-Out of first runs the corr dataset did best, with the LogisticRegression model getting .7195 <br>
-Attempting to use smote to balance the dataset only made it worse somehow <br>
-Attempted a grid search and still didn't do better, giving us a final model with AUC-ROC score of .7195 <br>
+Initial run revealed the problem our skewed dataset presented as no trials got above 35% accuracy regarding predicting 1 values. <br>
+Out of first runs the dataset including the features with top correlation scores with regards to the target did best, with the LogisticRegression model getting .7195 <br>
+Attempting to use smote to balance the dataset only made it worse somehow. <br>
+Attempted also to use a grid search and still didn't improve results, giving us a final model with AUC-ROC score of .7195 <br>
+![image](https://github.com/user-attachments/assets/6398aab5-5664-4b14-9b18-f0259bf97e04)
 
 
 -----
@@ -94,7 +94,7 @@ Attempted a grid search and still didn't do better, giving us a final model with
 -----
 Getting additional performance out of this dataset is difficult, and nothing helped improve our model. <br>
 The best result was achieved with LogisticRegression using scaled and imputed data <br>
-This gave us our .7195 AUC-ROC score <br>
+This gave us our .7195 AUC-ROC score. Due to the format of this challenge, no public submissions include their own scores, only parts of their process, so no comparisons currently can be made. <br>
 
 ### Lessons Learned: <br>
 Feature correlation and uniqueness filtering is essential for high-dimensional datasets. <br>
