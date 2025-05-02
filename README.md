@@ -1,9 +1,11 @@
+![UTA-DataScience-Logo](https://github.com/user-attachments/assets/8f615d7f-ee65-4a00-a34e-f376c185c484)
+
 # Springleaf Marketing Response Classification
 #### https://www.kaggle.com/competitions/springleaf-marketing-response/overview
 
 ## ---Project---
 
-This project tackles the Springleaf Marketing Response Kaggle challenge, where the goal is to predict customer responses (binary classification) using a highly anonymized dataset of over 1800 features and 50,000 records.
+This project focuses on the Springleaf Marketing Response Kaggle challenge, where the goal is to predict customer responses (binary classification) using a highly anonymized dataset of over 1900 features and 145,000 records. The sheer size of the dataset in addition to the inability to use domain knowledge to help sort features adds a level of challenge one doesn't always experience, and trimming down to the most relevant features quickly becomes the main focus. 
 
 -----
 ## -----Initial Look-----
