@@ -5,7 +5,7 @@
 
 ## ---Project---
 
-This project focuses on the Springleaf Marketing Response Kaggle challenge, where the goal is to predict customer responses (binary classification) using a highly anonymized dataset of over 1900 features and 145,000 records. The sheer size of the dataset in addition to the inability to use domain knowledge to help sort features adds a level of challenge one doesn't always experience, and trimming down to the most relevant features quickly becomes the main focus. 
+This project focuses on the Springleaf Marketing Response dataset, where the goal is to predict customer responses (binary classification) using a highly anonymized dataset of over 1900 features and 145,000 records. The sheer size of the dataset in addition to the inability to use domain knowledge to help sort features adds a level of challenge one doesn't always experience, and trimming down to the most relevant features quickly becomes the main focus. Through significant reducing of less relevant columns I am able to get a .7195 AUC-ROC score.
 
 -----
 ## -----Initial Look-----
@@ -16,9 +16,9 @@ Features: 1,934 columns (anonymized and mixed-type)
 
 Target: target (0 = no response, 1 = response)
 
-Challenge: Size, anonymized data, categorical fields, columns with multiple datatypes, heavy class imbalance, mixed data entry problems, Test has no target
+Challenge: Size, anonymized data, columns with multiple datatypes, inconsistent data entry problems, Test file has no target
 
-Cannot do many first step things as the file simply won't load.
+Cannot do many first step things as the file is simply too big to load.
 
 ### Objectives:
 Reduce dimensionality and select meaningful features <br>
@@ -27,9 +27,7 @@ Optimize model performance using hyperparameter tuning. <br>
 Prioritize AUC-ROC. <br>
 
 
-### Tableau
-
-Insights:
+### Tableau Insights:
 
 -Many differently formatted binary columns. 1 0, True False, "True" "False" <br>
 -Categorical columns like datetime mostly empty <br>
